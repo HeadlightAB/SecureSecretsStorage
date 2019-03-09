@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HelloVault": {
+      "commandName": "Project",
+      "commandLineArgs": "http://vps.freddes.se:81 myroot"
+    }
+  }
+}
