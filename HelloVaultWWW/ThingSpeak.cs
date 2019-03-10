@@ -1,8 +1,9 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using SecureStorageShared.Models;
 
-namespace HelloVault
+namespace HelloVaultWWW
 {
     public class ThingSpeak
     {
@@ -18,9 +19,9 @@ namespace HelloVault
         public async Task<ThingSpeakFeed> ReadFeed()
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.DefaultRequestHeaders.Add("THINGSPEAKAPIKEY", _configuration.Token);
+            _httpClient.DefaultRequestHeaders.Add("THINGSPEAKAPIKEY", _configuration["token"]);
 
-            var httpResponseMessage = await _httpClient.GetAsync(_configuration.FieldUrl);
+            var httpResponseMessage = await _httpClient.GetAsync(_configuration["fieldUrl"]);
             var jsonContent = await httpResponseMessage.Content.ReadAsStringAsync();
 
             return Newtonsoft.Json.JsonConvert.DeserializeObject<ThingSpeakFeed>(jsonContent);

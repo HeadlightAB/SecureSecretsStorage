@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HelloVault.Models
+namespace SecureStorageShared.Models
 {
     public class ThingSpeakFeed
     {
