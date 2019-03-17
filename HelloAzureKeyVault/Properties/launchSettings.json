@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HelloAzureKeyVault": {
+      "commandName": "Project",
+      "commandLineArgs": "https://configuration-demo.vault.azure.net/"
+    }
+  }
+}

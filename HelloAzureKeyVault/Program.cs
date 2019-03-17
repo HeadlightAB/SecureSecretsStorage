@@ -6,9 +6,11 @@ namespace HelloAzureKeyVault
 {
     class Program
     {
+        // args[0] = "https://configuration-demo.vault.azure.net/"
+        // in app args in project properties, in Debug - Profile: HelloAzureKeyVault
         static void Main(string[] args)
         {
-            var serviceProvider = ServiceProviderConfiguration.CreateProvider("https://configuration-demo.vault.azure.net/");
+            var serviceProvider = ServiceProviderConfiguration.CreateProvider(args[0]);
 
             var thingSpeak = serviceProvider.GetService<ThingSpeak>();
             var feedData = thingSpeak.ReadFeed().Result;
