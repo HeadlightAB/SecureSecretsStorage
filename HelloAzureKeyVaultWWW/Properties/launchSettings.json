@@ -10,7 +10,6 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "commandLineArgs": "https://configuration-demo.vault.azure.net/",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -18,6 +17,7 @@
     },
     "HelloAzureKeyVaultWWW": {
       "commandName": "Project",
+      "commandLineArgs": "https://configuration-demo.vault.azure.net/",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
