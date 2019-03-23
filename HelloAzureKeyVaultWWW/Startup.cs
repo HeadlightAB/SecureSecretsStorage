@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +33,12 @@ namespace HelloAzureKeyVaultWWW
 
             app.Run(async (context) =>
             {
+                if (context.Request.Path == "/favicon.ico")
+                {
+                    context.Response.StatusCode = (int) HttpStatusCode.NotFound;
+                    return;
+                }
+
                 await context.Response.WriteAsync(
                     $"Field data{Environment.NewLine}" +
                     $"{Newtonsoft.Json.JsonConvert.SerializeObject(_serivceProvider.GetService<ThingSpeak>().ReadFeed().Result)}");
