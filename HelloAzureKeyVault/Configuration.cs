@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 
 namespace HelloAzureKeyVault
 {
@@ -8,12 +8,12 @@ namespace HelloAzureKeyVault
         public string Token { get; }
         public Uri FieldUrl { get; }
 
-        public static IConfiguration Create(IDictionary<string, string> secrets) => new Configuration(secrets);
+        public static IConfiguration Create(IConfigurationRoot configurationRoot) => new Configuration(configurationRoot);
 
-        private Configuration(IDictionary<string, string> secrets)
+        private Configuration(IConfigurationRoot configurationRoot)
         {
-            Token = secrets["token"];
-            FieldUrl = new Uri(secrets["fieldUrl"]);
+            Token = configurationRoot["token"];
+            FieldUrl = new Uri(configurationRoot["fieldUrl"]);
         }        
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Net.Http;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace HelloAzureKeyVault
 {
@@ -14,13 +13,10 @@ namespace HelloAzureKeyVault
             var services = new ServiceCollection()
                 .AddSingleton(service =>
                 {
-                    var azTokenProvider = new AzureServiceTokenProvider();
-                    var kvClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azTokenProvider.KeyVaultTokenCallback));
-                    var secrets = kvClient.GetSecretsAsync(keyVaultEndpoint).GetAwaiter().GetResult()
-                        .Select(x => kvClient.GetSecretAsync(x.Id))
-                        .ToDictionary(x => x.Result.SecretIdentifier.Name, x => x.Result.Value);
+                    IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+                    configurationBuilder.AddAzureKeyVault(keyVaultEndpoint);
 
-                    return Configuration.Create(secrets);
+                    return Configuration.Create(configurationBuilder.Build());
                 })
                 .AddSingleton<HttpClient>()
                 .AddTransient<ThingSpeak>().BuildServiceProvider();
